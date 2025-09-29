@@ -1,0 +1,13 @@
+<h1>Listado de Órdenes</h1>
+<ul>
+    {% for orden in ordenes %}
+        <li>
+            <a href="{% url 'orden_detail' orden.pk %}">
+                Orden {{ orden.numero_orden }} - {{ orden.modelo }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No hay órdenes registradas.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'orden_create' %}">Nueva Orden</a>

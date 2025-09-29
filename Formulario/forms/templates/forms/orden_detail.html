@@ -1,0 +1,19 @@
+<h1>Orden {{ orden.numero_orden }}</h1>
+<p><b>Modelo:</b> {{ orden.modelo }}</p>
+<p><b>Color:</b> {{ orden.color }}</p>
+<p><b>Tallas:</b> {{ orden.talla_inicio }} - {{ orden.talla_fin }}</p>
+<p><b>Total piezas:</b> {{ orden.total_piezas }}</p>
+<h1>Detalles de la Orden {{ orden.id }}</h1>
+<p>Producto: {{ orden.producto }}</p>
+
+<p><b>Foto del modelo:</b><br>
+<img src="{{ orden.foto_modelo.url }}" width="200">
+</p>
+
+<p><b>Especificaciones:</b> <a href="{{ orden.especificaciones_pdf.url }}" target="_blank">Descargar PDF</a></p>
+
+<a href="{% url 'orden_list' %}">Volver al listado</a>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" name="delete">Eliminar Orden</button>
+</form>
