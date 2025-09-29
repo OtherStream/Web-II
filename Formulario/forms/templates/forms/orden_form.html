@@ -1,19 +1,31 @@
-<h1>Nueva Orden</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
+{% load static %}
 
-{% if form.errors %}
-    <div style="color:red;">
-        <h3>Errores de validación:</h3>
-        <ul>
-        {% for field, errors in form.errors.items %}
-            {% for error in errors %}
-                <li>{{ field }}: {{ error }}</li>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Orden</title>
+    <link rel="stylesheet" href="{% static 'forms/css/form.css' %}">
+</head>
+<body>
+    <h1>Nueva Orden</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+        <button onclick="history.back()">Regresar</button>
+    </form>
+    {% if form.errors %}
+        <div class="errorlist" style="color:red;">
+            <h3>Errores de validación:</h3>
+            <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }}: {{ error }}</li>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        </ul>
-    </div>
-{% endif %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,13 +1,26 @@
-<h1>Listado de Órdenes</h1>
-<ul>
-    {% for orden in ordenes %}
-        <li>
-            <a href="{% url 'orden_detail' orden.pk %}">
-                Orden {{ orden.numero_orden }} - {{ orden.modelo }}
-            </a>
-        </li>
-    {% empty %}
-        <li>No hay órdenes registradas.</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'orden_create' %}">Nueva Orden</a>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Órdenes</title>
+    <link rel="stylesheet" href="{% static 'forms/css/list.css' %}">
+</head>
+<body>
+    <h1>Listado de Órdenes</h1>
+    <a class="new-order-btn" href="{% url 'orden_create' %}">Nueva Orden</a>
+    <ul>
+        {% for orden in ordenes %}
+            <li>
+                <a href="{% url 'orden_detail' orden.pk %}">
+                    Orden {{ orden.numero_orden }} - {{ orden.modelo }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No hay órdenes registradas.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

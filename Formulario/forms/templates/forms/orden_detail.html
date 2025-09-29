@@ -1,19 +1,34 @@
-<h1>Orden {{ orden.numero_orden }}</h1>
-<p><b>Modelo:</b> {{ orden.modelo }}</p>
-<p><b>Color:</b> {{ orden.color }}</p>
-<p><b>Tallas:</b> {{ orden.talla_inicio }} - {{ orden.talla_fin }}</p>
-<p><b>Total piezas:</b> {{ orden.total_piezas }}</p>
-<h1>Detalles de la Orden {{ orden.id }}</h1>
-<p>Producto: {{ orden.producto }}</p>
+{% load static %}
 
-<p><b>Foto del modelo:</b><br>
-<img src="{{ orden.foto_modelo.url }}" width="200">
-</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles de la Orden</title>
+    <link rel="stylesheet" href="{% static 'forms/css/detail.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Orden {{ orden.numero_orden }}</h1>
+        <p><b>Modelo:</b> {{ orden.modelo }}</p>
+        <p><b>Color:</b> {{ orden.color }}</p>
+        <p><b>Tallas:</b> {{ orden.talla_inicio }} - {{ orden.talla_fin }}</p>
+        <p><b>Total piezas:</b> {{ orden.total_piezas }}</p>
 
-<p><b>Especificaciones:</b> <a href="{{ orden.especificaciones_pdf.url }}" target="_blank">Descargar PDF</a></p>
+        <div class="detail-section">
+            <h1>Detalles de la Orden {{ orden.id }}</h1>
+            <p><b>Foto del modelo:</b><br>
+                <img src="{{ orden.foto_modelo.url }}" alt="Foto del modelo">
+            </p>
+            <p><b>Especificaciones:</b> <a href="{{ orden.especificaciones_pdf.url }}" target="_blank">Descargar PDF</a></p>
+        </div>
 
-<a href="{% url 'orden_list' %}">Volver al listado</a>
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit" name="delete">Eliminar Orden</button>
-</form>
+        <p><a href="{% url 'orden_list' %}" class="btn-back">Volver al listado</a></p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="delete">Eliminar Orden</button>
+        </form>
+    </div>
+</body>
+</html>
