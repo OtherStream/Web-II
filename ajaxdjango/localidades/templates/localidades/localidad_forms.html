@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Localidad AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% csrf_token %}
+</head>
+
+<body>
+    <h1>Selecciona Estado y Municipio</h1>
+
+    <form id="form-localidad" method="post">
+        {% csrf_token %}
+        <label for="id_estado">Estado:</label>
+        {{ form.estado }}
+
+        <label for="id_municipio">Municipio:</label>
+        {{ form.municipio }}
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $("#id_estado").change(function () {
+                var estadoId = $(this).val();
+                var url = "{% url 'ajax_municipios' %}";
+                $.ajax({
+                    url: url,
+                    data: {
+                        estado_id: estadoId,
+                    },
+                    success: function (data) {
+                        var municipios = data.municipios;
+                        var $mun = $("#id_municipio");
+                        $mun.empty();
+                        $mun.append('<option value="">--- Elige municipio ---</option>');
+                        municipios.forEach(function (m) {
+                            var option = $("<option></option>")
+                                .attr("value", m.id)
+                                .text(m.nombre);
+                            $mun.append(option);
+                        });
+                    },
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
